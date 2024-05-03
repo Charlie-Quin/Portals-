@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c846xrm4uahcx"]
+[gd_scene load_steps=31 format=3 uid="uid://c846xrm4uahcx"]
 
 [ext_resource type="Shader" path="res://cutoff.gdshader" id="1_4j5p8"]
 [ext_resource type="Script" path="res://capsul.gd" id="2_powcp"]
@@ -33,9 +33,32 @@ albedo_color = Color(1, 0.14902, 0.243137, 1)
 [sub_resource type="ViewportTexture" id="ViewportTexture_weusi"]
 viewport_path = NodePath("portal1/SubViewport")
 
-[sub_resource type="PrismMesh" id="PrismMesh_4ff8p"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_72w1i"]
+albedo_color = Color(1, 0.207843, 0.0784314, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_rne0v"]
+[sub_resource type="PrismMesh" id="PrismMesh_4ff8p"]
+material = SubResource("StandardMaterial3D_72w1i")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eea0a"]
+albedo_color = Color(1, 0.207843, 0.0784314, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_popph"]
+material = SubResource("StandardMaterial3D_eea0a")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_muivo"]
+viewport_path = NodePath("portal2/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sq1wx"]
+albedo_color = Color(0.160784, 0.0470588, 0.862745, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_a0xiu"]
+material = SubResource("StandardMaterial3D_sq1wx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qvn7n"]
+albedo_color = Color(0.231373, 0.0431373, 0.937255, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ijxrr"]
+material = SubResource("StandardMaterial3D_qvn7n")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r2v4a"]
 albedo_color = Color(0, 0.588235, 0.894118, 1)
@@ -119,8 +142,15 @@ texture = SubResource("ViewportTexture_weusi")
 transform = Transform3D(1, 0, -4.37114e-08, -4.37114e-08, 1.91069e-15, -1, 0, 1, 1.91069e-15, 0, 0, 0)
 mesh = SubResource("PrismMesh_4ff8p")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="portal1/SubViewport"]
-mesh = SubResource("BoxMesh_rne0v")
+[node name="frame" type="Node3D" parent="portal1/SubViewport/stuff"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="portal1/SubViewport/stuff/frame"]
+transform = Transform3D(1.85228, 0, 0, 0, 0.102374, 0, 0, 0, 0.416464, 0, 1.45174, 0)
+mesh = SubResource("BoxMesh_popph")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="portal1/SubViewport/stuff/frame"]
+transform = Transform3D(1.85228, 0, 0, 0, 0.102374, 0, 0, 0, 0.416464, 0, -1.402, 0)
+mesh = SubResource("BoxMesh_popph")
 
 [node name="portal2" type="Node3D" parent="." node_paths=PackedStringArray("targetPortal")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0401688, 1.90735e-06, -0.00457668)
@@ -137,16 +167,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.72837, 0, 0)
 
 [node name="Sprite3D" type="Sprite3D" parent="portal2/SubViewport/stuff/Cameras"]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 1, -0.0668812, 0.0248566, 0.0646772)
-texture = SubResource("ViewportTexture_weusi")
+texture = SubResource("ViewportTexture_muivo")
 
 [node name="Camera3D" type="Camera3D" parent="portal2/SubViewport/stuff"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="portal2/SubViewport/stuff/Camera3D"]
-transform = Transform3D(1, 0, -4.37114e-08, -4.37114e-08, 1.91069e-15, -1, 0, 1, 1.91069e-15, 0, 0, 0)
-mesh = SubResource("PrismMesh_4ff8p")
+transform = Transform3D(1, 0, -4.37114e-08, -4.37114e-08, 1.91069e-15, -1, 0, 1, 1.91069e-15, -0.0198278, 0, -0.000779152)
+mesh = SubResource("PrismMesh_a0xiu")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="portal2/SubViewport"]
-mesh = SubResource("BoxMesh_rne0v")
+[node name="frame" type="Node3D" parent="portal2/SubViewport/stuff"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="portal2/SubViewport/stuff/frame"]
+transform = Transform3D(1.85228, 0, 0, 0, 0.102374, 0, 0, 0, 0.416464, 0, 1.45174, 0)
+mesh = SubResource("BoxMesh_ijxrr")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="portal2/SubViewport/stuff/frame"]
+transform = Transform3D(1.85228, 0, 0, 0, 0.102374, 0, 0, 0, 0.416464, 0, -1.402, 0)
+mesh = SubResource("BoxMesh_ijxrr")
 
 [node name="floor" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.23641, 0)
