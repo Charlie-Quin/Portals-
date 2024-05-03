@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 @onready var head : Node3D = $head/neck
 @onready var neck = $head
+@onready var camera = $head/neck/Camera3D
 
 const SPEED = 5.0
 const ACCEL = 6.0
@@ -39,6 +40,9 @@ func _physics_process(delta):
 const SENSITIVITY = 0.0015
 
 func _input(event):
+	if !camera.current:
+		return
+	
 	pass
 	if event is InputEventMouseMotion:
 		rotation.y += (-event.relative.x * SENSITIVITY)

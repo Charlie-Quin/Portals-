@@ -2,8 +2,8 @@ extends Node3D
 
 @export var targetPortal : Node3D
 
-@onready var stuff : Node3D = $SubViewport/stuff
-@onready var camera : Camera3D = $SubViewport/stuff/Camera3D
+
+@onready var camera : Camera3D = $SubViewport/Camera3D
 
 var player : CharacterBody3D
 
@@ -25,21 +25,23 @@ func _process(delta):
 	
 	#this bit works if there are no rotations
 	if false:
-		var cameraOffset = -(stuff.global_position - player.global_position)
-		camera.global_position =  cameraOffset + targetPortal.stuff.global_position
+		var cameraOffset = -(global_position - player.global_position)
+		camera.global_position =  cameraOffset + targetPortal.global_position
 	
 	
-	var globalOffset = -(stuff.global_transform.origin - player.global_transform.origin)
+	var globalOffset = -(global_transform.origin - player.global_transform.origin)
 	var myBasis = global_transform.basis
 	var localOffset = Vector3(globalOffset.dot(myBasis.x),globalOffset.dot(myBasis.y),globalOffset.dot(myBasis.z))
 	
-	var targetBasis = global_transform.basis
+	var targetBasis = targetPortal.global_transform.basis
 	var newPosition = (
-		targetPortal.stuff.global_transform.origin +
+		targetPortal.global_transform.origin +
 		targetBasis.z * localOffset.z +
 		targetBasis.x * localOffset.x + 
 		targetBasis.y * localOffset.y 
 		)
+	
+	camera.position = newPosition
 	
 	print(camera.position)
 	
