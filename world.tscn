@@ -130,13 +130,13 @@ mesh = SubResource("CylinderMesh_qkkxn")
 material = SubResource("StandardMaterial3D_uuctm")
 
 [node name="portal1" type="Node3D" parent="." node_paths=PackedStringArray("targetPortal")]
+transform = Transform3D(-0.291821, 0, 0.956473, 0, 1, 0, -0.956473, 0, -0.291821, -5.35455, 0, 0)
 script = ExtResource("3_g7d16")
 targetPortal = NodePath("../portal2")
 
-[node name="Cameras" type="Node3D" parent="portal1"]
-transform = Transform3D(-0.430543, 0, 0.90257, 0, 1, 0, -0.90257, 0, -0.430543, -4.9722, 9.53674e-07, -0.0199184)
+[node name="sprite" type="Node3D" parent="portal1"]
 
-[node name="Sprite3D" type="Sprite3D" parent="portal1/Cameras"]
+[node name="Sprite3D" type="Sprite3D" parent="portal1/sprite"]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 1, -0.0668812, 0.0248566, 0.0646772)
 visible = false
 texture = SubResource("ViewportTexture_weusi")
@@ -144,14 +144,12 @@ texture = SubResource("ViewportTexture_weusi")
 [node name="SubViewport" type="SubViewport" parent="portal1"]
 
 [node name="Camera3D" type="Camera3D" parent="portal1/SubViewport"]
-transform = Transform3D(-0.430543, 0, 0.90257, 0, 1, 0, -0.90257, 0, -0.430543, -4.9722, 9.53674e-07, -0.0199184)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="portal1/SubViewport/Camera3D"]
 transform = Transform3D(1, 0, -4.37114e-08, -4.37114e-08, 1.91069e-15, -1, 0, 1, 1.91069e-15, 0, 0, 0)
 mesh = SubResource("PrismMesh_4ff8p")
 
 [node name="frame" type="Node3D" parent="portal1"]
-transform = Transform3D(-0.430543, 0, 0.90257, 0, 1, 0, -0.90257, 0, -0.430543, -4.9722, 9.53674e-07, -0.0199184)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="portal1/frame"]
 transform = Transform3D(1.85228, 0, 0, 0, 0.102374, 0, 0, 0, 0.416464, 0, 1.45174, 0)
@@ -166,14 +164,13 @@ transform = Transform3D(1.85228, 0, 0, 0, 0.102374, 0, 0, 0, 0.416464, 0, -1.402
 mesh = SubResource("BoxMesh_popph")
 
 [node name="portal2" type="Node3D" parent="." node_paths=PackedStringArray("targetPortal")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0401688, 1.90735e-06, -0.00457668)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.71521, 0, 0)
 script = ExtResource("3_g7d16")
 targetPortal = NodePath("../portal1")
 
-[node name="Cameras" type="Node3D" parent="portal2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.72837, 0, 0)
+[node name="sprite" type="Node3D" parent="portal2"]
 
-[node name="Sprite3D" type="Sprite3D" parent="portal2/Cameras"]
+[node name="Sprite3D" type="Sprite3D" parent="portal2/sprite"]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 1, -0.0668812, 0.0248566, 0.0646772)
 visible = false
 texture = SubResource("ViewportTexture_muivo")
@@ -181,14 +178,12 @@ texture = SubResource("ViewportTexture_muivo")
 [node name="SubViewport" type="SubViewport" parent="portal2"]
 
 [node name="Camera3D" type="Camera3D" parent="portal2/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.76854, 1.90735e-06, -0.00457668)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="portal2/SubViewport/Camera3D"]
 transform = Transform3D(1, 0, -4.37114e-08, -4.37114e-08, 1.91069e-15, -1, 0, 1, 1.91069e-15, -0.0198278, 0, -0.000779152)
 mesh = SubResource("PrismMesh_a0xiu")
 
 [node name="frame" type="Node3D" parent="portal2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.72837, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="portal2/frame"]
 transform = Transform3D(1.85228, 0, 0, 0, 0.102374, 0, 0, 0, 0.416464, 0, 1.45174, 0)
