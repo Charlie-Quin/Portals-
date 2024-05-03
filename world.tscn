@@ -1,0 +1,36 @@
+[gd_scene load_steps=9 format=3 uid="uid://c846xrm4uahcx"]
+
+[ext_resource type="Shader" path="res://cutoff.gdshader" id="1_4j5p8"]
+[ext_resource type="Script" path="res://capsul.gd" id="2_powcp"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yta80"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_e16dy"]
+noise = SubResource("FastNoiseLite_yta80")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6n8rm"]
+render_priority = 0
+shader = ExtResource("1_4j5p8")
+shader_parameter/cutplane = null
+shader_parameter/_albedo = SubResource("NoiseTexture2D_e16dy")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tsbas"]
+albedo_texture = SubResource("NoiseTexture2D_e16dy")
+albedo_texture_force_srgb = true
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_82j70"]
+material = SubResource("StandardMaterial3D_tsbas")
+
+[sub_resource type="BoxMesh" id="BoxMesh_qu6tc"]
+
+[node name="World" type="Node3D"]
+
+[node name="capsul" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_6n8rm")
+mesh = SubResource("CapsuleMesh_82j70")
+script = ExtResource("2_powcp")
+
+[node name="cutPlane" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(0.62199, 0.761765, -0.181223, -0.774591, 0.632462, 0, 0.114617, 0.140374, 0.983442, -1.10693, 1.11305, -0.678081)
+mesh = SubResource("BoxMesh_qu6tc")
