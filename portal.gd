@@ -23,11 +23,23 @@ func _process(delta):
 		if not player:
 			return
 	
-	var offsetToOtherPortal = - (stuff.position - targetPortal.stuff.position )
+	#this bit works if there are no rotations
+	if false:
+		var cameraOffset = -(stuff.global_position - player.global_position)
+		camera.global_position =  cameraOffset + targetPortal.stuff.global_position
 	
-	var cameraOffset = -(stuff.global_position - player.global_position)
 	
-	camera.position =  cameraOffset + offsetToOtherPortal
+	var globalOffset = -(stuff.global_transform.origin - player.global_transform.origin)
+	var myBasis = global_transform.basis
+	var localOffset = Vector3(globalOffset.dot(myBasis.x),globalOffset.dot(myBasis.y),globalOffset.dot(myBasis.z))
+	
+	var targetBasis = global_transform.basis
+	var newPosition = (
+		targetPortal.stuff.global_transform.origin +
+		targetBasis.z * localOffset.z +
+		targetBasis.x * localOffset.x + 
+		targetBasis.y * localOffset.y 
+		)
 	
 	print(camera.position)
 	
