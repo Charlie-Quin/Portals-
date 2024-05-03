@@ -28,19 +28,25 @@ func _process(delta):
 		var cameraOffset = -(global_position - player.global_position)
 		camera.global_position =  cameraOffset + targetPortal.global_position
 	
+	#works with rotations on the portals! not the player. Let's use the real functions to do this now.
+	if false:
+		var globalOffset = -(global_transform.origin - player.global_transform.origin)
+		var myBasis = global_transform.basis
+		var localOffset = Vector3(globalOffset.dot(myBasis.x),globalOffset.dot(myBasis.y),globalOffset.dot(myBasis.z))
+		
+		var targetBasis = targetPortal.global_transform.basis
+		var newPosition = (
+			targetPortal.global_transform.origin +
+			targetBasis.z * localOffset.z +
+			targetBasis.x * localOffset.x + 
+			targetBasis.y * localOffset.y 
+			)
+		
+		camera.position = newPosition
 	
-	var globalOffset = -(global_transform.origin - player.global_transform.origin)
-	var myBasis = global_transform.basis
-	var localOffset = Vector3(globalOffset.dot(myBasis.x),globalOffset.dot(myBasis.y),globalOffset.dot(myBasis.z))
 	
-	var targetBasis = targetPortal.global_transform.basis
-	var newPosition = (
-		targetPortal.global_transform.origin +
-		targetBasis.z * localOffset.z +
-		targetBasis.x * localOffset.x + 
-		targetBasis.y * localOffset.y 
-		)
-	
+	var localOffset = to_local(player.global_transform.origin)
+	var newPosition = targetPortal.to_global(localOffset)
 	camera.position = newPosition
 	
 	print(camera.position)
