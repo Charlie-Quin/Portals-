@@ -148,6 +148,10 @@ mesh = SubResource("PrismMesh_4ff8p")
 transform = Transform3D(1.85228, 0, 0, 0, 0.102374, 0, 0, 0, 0.416464, 0, 1.45174, 0)
 mesh = SubResource("BoxMesh_popph")
 
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="portal1/SubViewport/stuff/frame"]
+transform = Transform3D(0.0117027, 0, -0.416456, 0, 0.102374, 0, 1.85224, 0, 0.00263122, 0, -0.58673, -2.6565)
+mesh = SubResource("BoxMesh_popph")
+
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="portal1/SubViewport/stuff/frame"]
 transform = Transform3D(1.85228, 0, 0, 0, 0.102374, 0, 0, 0, 0.416464, 0, -1.402, 0)
 mesh = SubResource("BoxMesh_popph")
@@ -155,7 +159,7 @@ mesh = SubResource("BoxMesh_popph")
 [node name="portal2" type="Node3D" parent="." node_paths=PackedStringArray("targetPortal")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0401688, 1.90735e-06, -0.00457668)
 script = ExtResource("3_g7d16")
-targetPortal = NodePath("SubViewport/stuff/Camera3D/MeshInstance3D")
+targetPortal = NodePath("../portal1")
 
 [node name="SubViewport" type="SubViewport" parent="portal2"]
 size = Vector2i(720, 1080)
@@ -179,6 +183,10 @@ mesh = SubResource("PrismMesh_a0xiu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="portal2/SubViewport/stuff/frame"]
 transform = Transform3D(1.85228, 0, 0, 0, 0.102374, 0, 0, 0, 0.416464, 0, 1.45174, 0)
+mesh = SubResource("BoxMesh_ijxrr")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="portal2/SubViewport/stuff/frame"]
+transform = Transform3D(-0.0230173, 0, -0.416432, 0, 0.102374, 0, 1.85214, 0, -0.00517517, 0, -0.187166, -1.88414)
 mesh = SubResource("BoxMesh_ijxrr")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="portal2/SubViewport/stuff/frame"]
@@ -219,3 +227,7 @@ environment = SubResource("Environment_yb2rf")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="enviroment"]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="enviroment"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 12.3496, 0)
+current = true

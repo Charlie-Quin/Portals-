@@ -23,9 +23,13 @@ func _process(delta):
 		if not player:
 			return
 	
-	var cameraOffset = stuff.global_position - player.global_position
+	var offsetToOtherPortal = - (stuff.position - targetPortal.stuff.position )
 	
-	camera.global_position = targetPortal.stuff.global_position + cameraOffset
+	var cameraOffset = -(stuff.global_position - player.global_position)
+	
+	camera.position =  cameraOffset + offsetToOtherPortal
+	
+	print(camera.position)
 	
 	pass
 
