@@ -10,5 +10,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	material_override.set_shader_parameter("cutplane",mi_cutplane.transform);
+	if (mi_cutplane):
+		material_override.set_shader_parameter("cutplane",mi_cutplane.global_transform);
+	else:
+		mi_cutplane= get_node("%cutPlane")
 	pass
