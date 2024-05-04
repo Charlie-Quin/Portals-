@@ -1,9 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://c846xrm4uahcx"]
+[gd_scene load_steps=18 format=3 uid="uid://c846xrm4uahcx"]
 
-[ext_resource type="Shader" path="res://cutoff.gdshader" id="1_4j5p8"]
-[ext_resource type="Script" path="res://capsul.gd" id="2_powcp"]
-[ext_resource type="Script" path="res://player.gd" id="3_81ptb"]
-[ext_resource type="PackedScene" uid="uid://bq1tkyat0bymw" path="res://portal.tscn" id="3_td0wn"]
+[ext_resource type="Shader" path="res://shaders/cutoff.gdshader" id="1_4j5p8"]
+[ext_resource type="Script" path="res://scripts/capsul.gd" id="2_powcp"]
+[ext_resource type="PackedScene" uid="uid://bq1tkyat0bymw" path="res://scenes/portal.tscn" id="3_td0wn"]
+[ext_resource type="PackedScene" uid="uid://b7gkcloxvcyqv" path="res://scenes/player.tscn" id="4_qxofc"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_yta80"]
 
@@ -49,17 +49,6 @@ albedo_color = Color(0, 0.172549, 0, 1)
 metallic = 0.67
 roughness = 0.28
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_js4xe"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_u5wyk"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cccij"]
-albedo_color = Color(1, 0.160784, 0.235294, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_kgfux"]
-material = SubResource("StandardMaterial3D_cccij")
-size = Vector3(0.1, 0.1, 1)
-
 [node name="World" type="Node3D"]
 
 [node name="clipping stuff" type="Node3D" parent="."]
@@ -86,7 +75,7 @@ mesh = SubResource("PlaneMesh_3ckh7")
 skeleton = NodePath("../..")
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="clipping stuff"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.10902, -14.9363)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.10902, -21.6445)
 use_collision = true
 mesh = SubResource("CylinderMesh_qkkxn")
 material = SubResource("StandardMaterial3D_uuctm")
@@ -96,7 +85,7 @@ targetPortal = NodePath("../portal2")
 color = Color(0.352941, 0.615686, 0.184314, 1)
 
 [node name="portal2" parent="." node_paths=PackedStringArray("targetPortal") instance=ExtResource("3_td0wn")]
-transform = Transform3D(0.25011, 0, 0.968217, 0, 1, 0, -0.968217, 0, 0.25011, 5.09138, 0, 0)
+transform = Transform3D(-0.475899, -0.718988, 0.506533, -0.492309, 0.695022, 0.523999, -0.728801, 0, -0.684725, 4.50506, 4.20393, -4.46499)
 targetPortal = NodePath("../portal1")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
@@ -141,27 +130,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.7262, 0.0613861, 0.836129)
 size = Vector3(11.3444, 1, 24.8003)
 material = SubResource("StandardMaterial3D_uufj1")
 
-[node name="player" type="CharacterBody3D" parent="."]
-script = ExtResource("3_81ptb")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="player"]
-shape = SubResource("CapsuleShape3D_js4xe")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="player"]
-mesh = SubResource("CapsuleMesh_u5wyk")
-
-[node name="head" type="Node3D" parent="player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.881398, 0)
-
-[node name="neck" type="Node3D" parent="player/head"]
-
-[node name="Camera3D" type="Camera3D" parent="player/head/neck"]
-current = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="player/head/neck"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.478045, -0.772841)
-visible = false
-mesh = SubResource("BoxMesh_kgfux")
+[node name="player" parent="." instance=ExtResource("4_qxofc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.22347)
 
 [node name="enviroment" type="Node3D" parent="."]
 

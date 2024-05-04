@@ -87,3 +87,19 @@ func is_behind(pos: Transform3D,byHowMuch : float = 0.0):
 
 
 
+
+
+func _on_object_detector_body_entered(body):
+	
+	if body.is_in_group("portalAble"):
+		body.currentPortal = self
+	
+	pass # Replace with function body.
+
+
+func _on_object_detector_body_exited(body):
+	
+	if body.is_in_group("portalAble") and body.currentPortal == self:
+		body.currentPortal = null
+	
+	pass # Replace with function body.

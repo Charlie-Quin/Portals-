@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b87q4fcqlu0bh"]
 
-[ext_resource type="Script" path="res://Camera3D.gd" id="1_qrqo5"]
+[ext_resource type="Script" path="res://scripts/Camera3D.gd" id="1_qrqo5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v2a31"]
 albedo_color = Color(0.168627, 0.0313726, 0.235294, 1)
