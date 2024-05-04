@@ -1,0 +1,162 @@
+[gd_scene load_steps=7 format=3 uid="uid://b87q4fcqlu0bh"]
+
+[ext_resource type="Script" path="res://Camera3D.gd" id="1_qrqo5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v2a31"]
+albedo_color = Color(0.168627, 0.0313726, 0.235294, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wu287"]
+albedo_color = Color(0.168627, 0.47451, 0.235294, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nf0u3"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_bephh"]
+sky_material = SubResource("ProceduralSkyMaterial_nf0u3")
+
+[sub_resource type="Environment" id="Environment_dn8ct"]
+background_mode = 2
+sky = SubResource("Sky_bephh")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="CameraTest" type="Node3D"]
+
+[node name="world" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.49796, 0, -0.832672)
+size = Vector3(16.0097, 1, 13.8297)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.888632, 1.76514, -1.7234)
+size = Vector3(1.25073, 3.1366, 3.43192)
+material = SubResource("StandardMaterial3D_v2a31")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.37689, 1.47117, -2.50243)
+size = Vector3(1.25073, 2.54865, 0.813614)
+material = SubResource("StandardMaterial3D_wu287")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.70293, 1.47117, 1.29093)
+size = Vector3(1.25073, 2.54865, 1.78291)
+material = SubResource("StandardMaterial3D_wu287")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.740805, -0.229742, 0.631211, 0, 0.939693, 0.34202, -0.671721, -0.25337, 0.696129, 5.78886, 3.90351, 3.89223)
+script = ExtResource("1_qrqo5")
+
+[node name="Control" type="Control" parent="Camera3D"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="near" type="Label" parent="Camera3D/Control"]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 578.0
+offset_right = 73.0
+offset_bottom = 601.0
+text = "near"
+
+[node name="HSlider" type="HSlider" parent="Camera3D/Control/near"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 28.0
+offset_right = 216.0
+offset_bottom = 44.0
+max_value = 15.0
+step = 0.1
+
+[node name="far" type="Label" parent="Camera3D/Control"]
+layout_mode = 0
+offset_left = 297.0
+offset_top = 576.0
+offset_right = 337.0
+offset_bottom = 599.0
+text = "far"
+
+[node name="HSlider" type="HSlider" parent="Camera3D/Control/far"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 28.0
+offset_right = 216.0
+offset_bottom = 44.0
+max_value = 15.0
+step = 0.1
+
+[node name="size" type="Label" parent="Camera3D/Control"]
+layout_mode = 0
+offset_left = 551.0
+offset_top = 574.0
+offset_right = 591.0
+offset_bottom = 597.0
+text = "size
+"
+
+[node name="HSlider" type="HSlider" parent="Camera3D/Control/size"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 28.0
+offset_right = 216.0
+offset_bottom = 44.0
+max_value = 15.0
+step = 0.1
+
+[node name="offsetX" type="Label" parent="Camera3D/Control"]
+layout_mode = 0
+offset_left = 845.0
+offset_top = 571.0
+offset_right = 885.0
+offset_bottom = 594.0
+text = "offsetX
+
+"
+
+[node name="HSlider" type="HSlider" parent="Camera3D/Control/offsetX"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 28.0
+offset_right = 216.0
+offset_bottom = 44.0
+max_value = 15.0
+step = 0.1
+
+[node name="offsetY" type="Label" parent="Camera3D/Control"]
+layout_mode = 0
+offset_left = 843.0
+offset_top = 492.0
+offset_right = 898.0
+offset_bottom = 541.0
+text = "offsetY
+
+"
+
+[node name="HSlider" type="HSlider" parent="Camera3D/Control/offsetY"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 28.0
+offset_right = 216.0
+offset_bottom = 44.0
+max_value = 15.0
+step = 0.1
+
+[node name="enviroment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="enviroment"]
+environment = SubResource("Environment_dn8ct")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="enviroment"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[connection signal="value_changed" from="Camera3D/Control/near/HSlider" to="Camera3D" method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="Camera3D/Control/far/HSlider" to="Camera3D" method="_on_far_value_changed"]
+[connection signal="value_changed" from="Camera3D/Control/size/HSlider" to="Camera3D" method="_on_size_value_changed"]
+[connection signal="value_changed" from="Camera3D/Control/offsetX/HSlider" to="Camera3D" method="_on_offsetX_value_changed"]
+[connection signal="value_changed" from="Camera3D/Control/offsetY/HSlider" to="Camera3D" method="_on_offsetY_value_changed"]

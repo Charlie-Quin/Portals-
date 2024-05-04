@@ -35,6 +35,14 @@ func _process(delta):
 	var m = targetPortal.global_transform.rotated_local(Vector3.UP,PI) * global_transform.affine_inverse() * player.neck.global_transform
 	camera.transform = m
 	
+	camera.near = max(0.05,(camera.position - targetPortal.global_position).length() - 1.5)
+	
+	var player_LocalToSelf = global_transform.affine_inverse() * player.global_transform
+	var global_playerLocalToOtherPortal = targetPortal.global_transform.rotated_local(Vector3.UP,PI) * player_LocalToSelf
+	
+	if Input.is_action_just_pressed("ui_accept") and name == "portal1":
+		player.global_transform = global_playerLocalToOtherPortal;
+	
 	#if materialOverride and viewport:
 		#materialOverride.set_shader_parameter("texture_albedo", viewport.get_texture())
 	

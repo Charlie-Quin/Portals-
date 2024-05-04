@@ -1,5 +1,7 @@
 shader_type spatial;
 
+render_mode unshaded;
+
 uniform sampler2D texture_albedo : source_color;
 
 void vertex() {
@@ -11,3 +13,5 @@ void fragment() {
 	vec4 albedo_tex = texture(texture_albedo,base_uv);
 	ALBEDO = albedo_tex.rgb;
 }
+
+
