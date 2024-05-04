@@ -44,22 +44,32 @@ func _process(delta):
 		
 		camera.position = newPosition
 	
-	
+	#this works great for position!
 	var localOffset = to_local(player.global_transform.origin)
 	var newPosition = targetPortal.to_global(localOffset)
 	camera.position = newPosition
 	
-	# Calculate the combined matrix
-	var matrix = global_transform * targetPortal.global_transform.affine_inverse() * player.neck.global_transform
-	
-	# Extract rotation from the matrix
-	var rotation = matrix.basis.get_rotation_quaternion()
-	
-	# Apply rotation to the camera
-	camera.global_transform.basis = Basis(rotation)
+	#doesn't work
+	if false:
+		# Calculate the combined matrix
+		var matrix = global_transform * targetPortal.transform * player.neck.global_transform
+		# Apply rotation to the camera
+		camera.quaternion = matrix.basis.get_rotation_quaternion()
 	
 	
-	print(camera.position)
+	# we want the player's global matrix as relative to the target portal
+	
+	var player_local_to_A = global_transform.affine_inverse() * player.neck.global_transform
+	
+	var newMatrix = targetPortal.global_transform * player_local_to_A
+	
+	camera.transform.basis = newMatrix.basis
+	camera.transform.origin = newMatrix.origin
+	
+	#this code is run by "portal in"
+	#??? = -player.global_transform.basis.z + self.transform.basis.z + targetPortal.basis.z
+	
+	#camera.look_at(camera.global_position - player.neck.global_transform.basis.z + self.transform.basis.z - targetPortal.transform.basis.z)
 	
 	pass
 
