@@ -130,7 +130,7 @@ mesh = SubResource("CylinderMesh_qkkxn")
 material = SubResource("StandardMaterial3D_uuctm")
 
 [node name="portal1" type="Node3D" parent="." node_paths=PackedStringArray("targetPortal")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.35455, 0, 0)
+transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -5.35455, 0, 0)
 script = ExtResource("3_g7d16")
 targetPortal = NodePath("../portal2")
 

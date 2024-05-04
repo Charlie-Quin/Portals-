@@ -50,7 +50,7 @@ func _process(delta):
 	camera.position = newPosition
 	
 	# Calculate the combined matrix
-	var matrix = global_transform * targetPortal.global_transform.affine_inverse() * player.global_transform
+	var matrix = global_transform * targetPortal.global_transform.affine_inverse() * player.neck.global_transform
 	
 	# Extract rotation from the matrix
 	var rotation = matrix.basis.get_rotation_quaternion()

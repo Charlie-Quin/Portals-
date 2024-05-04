@@ -50,7 +50,7 @@ func _input(event):
 		rotation.y += (-event.relative.x * SENSITIVITY)
 		
 		
-		if !camera.current:
+		if false and !camera.current:
 			return
 		
 		neck.rotation.x += (-event.relative.y * SENSITIVITY)
