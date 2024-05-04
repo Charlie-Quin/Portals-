@@ -28,7 +28,10 @@ func _physics_process(delta):
 	
 	var input = Input.get_vector("a","d","w","s").normalized()
 	
-	var targetVel = (input.y * basis.z + input.x * basis.x).normalized() * SPEED
+	var newBasis = basis if camera.current else Basis(Vector3.RIGHT,0) 
+	
+	
+	var targetVel = (input.y * newBasis.z + input.x * newBasis.x).normalized() * SPEED
 	
 	velocity.x = lerp(velocity.x,targetVel.x,ACCEL * delta)
 	velocity.z = lerp(velocity.z,targetVel.z,ACCEL * delta)
@@ -40,12 +43,15 @@ func _physics_process(delta):
 const SENSITIVITY = 0.0015
 
 func _input(event):
-	if !camera.current:
-		return
+	
 	
 	pass
 	if event is InputEventMouseMotion:
 		rotation.y += (-event.relative.x * SENSITIVITY)
+		
+		
+		if !camera.current:
+			return
 		
 		neck.rotation.x += (-event.relative.y * SENSITIVITY)
 		neck.rotation.x = clamp(neck.rotation.x, deg_to_rad(-90),deg_to_rad(90))

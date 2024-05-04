@@ -49,6 +49,16 @@ func _process(delta):
 	var newPosition = targetPortal.to_global(localOffset)
 	camera.position = newPosition
 	
+	# Calculate the combined matrix
+	var matrix = global_transform * targetPortal.global_transform.affine_inverse() * player.global_transform
+	
+	# Extract rotation from the matrix
+	var rotation = matrix.basis.get_rotation_quaternion()
+	
+	# Apply rotation to the camera
+	camera.global_transform.basis = Basis(rotation)
+	
+	
 	print(camera.position)
 	
 	pass
