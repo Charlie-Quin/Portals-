@@ -1,8 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7gkcloxvcyqv"]
+[gd_scene load_steps=8 format=3 uid="uid://b7gkcloxvcyqv"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_l14o8"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_js4xe"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lvvqp"]
+albedo_color = Color(1, 0.054902, 0.0705882, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_uwlmj"]
+material = SubResource("StandardMaterial3D_lvvqp")
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u5wyk"]
 
@@ -19,7 +25,12 @@ script = ExtResource("1_l14o8")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_js4xe")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="dummyMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.350767, 0, 0, 0, 0.314129, 0, 0, 0, 1, 0, 0, -0.679836)
+mesh = SubResource("BoxMesh_uwlmj")
+skeleton = NodePath("../realMesh")
+
+[node name="realMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_u5wyk")
 
 [node name="head" type="Node3D" parent="."]

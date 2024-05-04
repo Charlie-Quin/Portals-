@@ -74,6 +74,7 @@ transform = Transform3D(1, 0, 3.82137e-15, 3.82137e-15, 4.37114e-08, -1, 0, 1, 4
 mesh = SubResource("CylinderMesh_350q8")
 
 [node name="frame" type="Node3D" parent="."]
+visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="frame"]
 transform = Transform3D(2.11987, 0, 0, 0, 0.102374, 0, 0, 0, 0.416464, 0, 1.45174, 0)

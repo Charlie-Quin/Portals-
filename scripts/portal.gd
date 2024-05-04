@@ -1,5 +1,7 @@
 extends Node3D
 
+class_name portal
+
 @export var targetPortal : Node3D
 
 
@@ -75,9 +77,15 @@ func _process(delta):
 	
 	pass
 
+func getSwappedPosition(globalTransform : Transform3D) -> Transform3D:
+	
+	var object_LocalToSelf = global_transform.affine_inverse() * globalTransform
+	return targetPortal.global_transform.rotated_local(Vector3.UP,PI) * object_LocalToSelf
+	
+	
 
 func is_behind(pos: Transform3D,byHowMuch : float = 0.0):
-	print(name," ",pos.origin.dot(basis.z))
+	#print(name," ",pos.origin.dot(basis.z))
 	return to_local(pos.origin).dot(basis.z) > byHowMuch;
 	
 	
