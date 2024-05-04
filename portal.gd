@@ -7,11 +7,15 @@ extends Node3D
 
 var player : CharacterBody3D
 
+@export var color = Color.RED
+
 #@onready var viewport = $SubViewport
 #@onready var materialOverride = $sprite/Sprite3D.material_override
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	$frame/MeshInstance3D.mesh.material.albedo_color = color
 	
 	#var linked: Node = links[portal]
 	#var link_viewport: Viewport = linked.get_node("Viewport")
@@ -40,8 +44,31 @@ func _process(delta):
 	var player_LocalToSelf = global_transform.affine_inverse() * player.global_transform
 	var global_playerLocalToOtherPortal = targetPortal.global_transform.rotated_local(Vector3.UP,PI) * player_LocalToSelf
 	
-	if Input.is_action_just_pressed("ui_accept") and name == "portal1":
+	if is_behind(player.global_transform) and global_position.distance_to(player.global_position) < 1.5:# and name == "portal1":
+		
+		
+		var playerBasis = player.global_transform.basis
+		#var oldPlayerVel = (player.velocity.z * playerBasis.z + player.velocity.x * playerBasis.x + player.velocity.y * playerBasis.y)
+		
+		var oldPlayerVel = Vector3(player.velocity.dot(playerBasis.x),player.velocity.dot(playerBasis.y),player.velocity.dot(playerBasis.z))
+		
+		#var oldPlayerVel = player.to_local(player.velocity)
+		
+		print("old",oldPlayerVel)
+		
 		player.global_transform = global_playerLocalToOtherPortal;
+		
+		var newBasis = player.global_transform.basis
+		
+		var newVel = (oldPlayerVel.z * newBasis.z + oldPlayerVel.x * newBasis.x + oldPlayerVel.y * newBasis.y)
+		
+		print(oldPlayerVel.length(),newVel.length())
+		
+		player.velocity = newVel
+		
+		print("new",player.velocity)
+		
+	
 	
 	#if materialOverride and viewport:
 		#materialOverride.set_shader_parameter("texture_albedo", viewport.get_texture())
@@ -49,7 +76,11 @@ func _process(delta):
 	pass
 
 
-
+func is_behind(pos: Transform3D,byHowMuch : float = 0.0):
+	print(name," ",pos.origin.dot(basis.z))
+	return to_local(pos.origin).dot(basis.z) > byHowMuch;
+	
+	
 
 
 
