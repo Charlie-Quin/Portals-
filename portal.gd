@@ -7,8 +7,8 @@ extends Node3D
 
 var player : CharacterBody3D
 
-@onready var viewport = $SubViewport
-@onready var materialOverride = $sprite/Sprite3D.material_override
+#@onready var viewport = $SubViewport
+#@onready var materialOverride = $sprite/Sprite3D.material_override
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,11 +32,11 @@ func _process(delta):
 	
 	
 	# we want the player's global matrix as relative to the target portal
-	var m = targetPortal.global_transform * global_transform.affine_inverse() * player.neck.global_transform
+	var m = targetPortal.global_transform.rotated_local(Vector3.UP,PI) * global_transform.affine_inverse() * player.neck.global_transform
 	camera.transform = m
 	
-	if materialOverride and viewport:
-		materialOverride.set_shader_parameter("texture_albedo", viewport.get_texture())
+	#if materialOverride and viewport:
+		#materialOverride.set_shader_parameter("texture_albedo", viewport.get_texture())
 	
 	pass
 
