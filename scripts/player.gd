@@ -44,13 +44,13 @@ func _physics_process(delta):
 	
 	rotateToUp(delta)
 	
-	handlePortals()
+	handlePortals(delta)
 	
 
 func rotateToUp(delta):
 	
 	var difference = basis.y .angle_to(Vector3.UP)
-	print(difference)
+	#print(difference)
 	
 	if difference < deg_to_rad(2):
 		return
@@ -64,7 +64,7 @@ func rotateToUp(delta):
 
 @onready var dummyMesh : MeshInstance3D = $dummyMesh
 @onready var realMesh : MeshInstance3D = $realMesh
-func handlePortals():
+func handlePortals(delta):
 	
 	dummyMesh.visible = true if currentPortal else false
 	
@@ -77,10 +77,23 @@ func handlePortals():
 	
 	realMesh.cutPlane = currentPortal.cutPlane
 	
+	
+	
+	var wentThroughPortal = currentPortal.global_transform.basis.z.angle_to((currentPortal.global_transform.origin - global_transform.origin + velocity * delta)) > PI/2
+	
+	if wentThroughPortal:
+		swapToNewPosition()
+		
+		handlePortals(delta)
+	
 
 func swapToNewPosition():
 	
+	var OGTransform = global_transform
 	
+	global_transform = currentPortal.getSwappedPosition(global_transform)
+	
+	velocity = currentPortal.adjustToNewTransform(velocity,OGTransform,global_transform)
 	
 	pass
 

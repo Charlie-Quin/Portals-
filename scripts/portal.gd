@@ -19,7 +19,7 @@ var player : CharacterBody3D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	$frame/MeshInstance3D.mesh.material.albedo_color = color
+	$sprite/portalMesh.material_override.set_shader_parameter("portal_colour",color)
 	
 	#var linked: Node = links[portal]
 	#var link_viewport: Viewport = linked.get_node("Viewport")
@@ -78,6 +78,18 @@ func _process(delta):
 		#materialOverride.set_shader_parameter("texture_albedo", viewport.get_texture())
 	
 	pass
+
+func adjustToNewTransform(vector : Vector3,oldGlobalTransform,newGlobalTransform):
+	var OGBasis = oldGlobalTransform.basis
+	var oldVectorLocal = Vector3(vector.dot(OGBasis.x),vector.dot(OGBasis.y),vector.dot(OGBasis.z))
+	
+	var newBasis = newGlobalTransform.basis
+	var newVec = (oldVectorLocal.z * newBasis.z + oldVectorLocal.x * newBasis.x + oldVectorLocal.y * newBasis.y)
+	
+	return newVec
+
+
+
 
 func getSwappedPosition(globalTransform : Transform3D) -> Transform3D:
 	
