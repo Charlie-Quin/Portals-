@@ -1,8 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7gkcloxvcyqv"]
+[gd_scene load_steps=14 format=3 uid="uid://b7gkcloxvcyqv"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_l14o8"]
+[ext_resource type="Shader" path="res://shaders/cutoff.gdshader" id="2_02smc"]
+[ext_resource type="Script" path="res://scripts/cuttableMesh.gd" id="3_2a84f"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_js4xe"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qng0c"]
+render_priority = 0
+shader = ExtResource("2_02smc")
+shader_parameter/cutplane = null
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_u5wyk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uu15h"]
+render_priority = 0
+shader = ExtResource("2_02smc")
+shader_parameter/cutplane = null
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lvvqp"]
 albedo_color = Color(1, 0.054902, 0.0705882, 1)
@@ -10,7 +24,15 @@ albedo_color = Color(1, 0.054902, 0.0705882, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_uwlmj"]
 material = SubResource("StandardMaterial3D_lvvqp")
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_u5wyk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_083qf"]
+render_priority = 0
+shader = ExtResource("2_02smc")
+shader_parameter/cutplane = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_khd3q"]
+render_priority = 0
+shader = ExtResource("2_02smc")
+shader_parameter/cutplane = null
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cccij"]
 albedo_color = Color(1, 0.160784, 0.235294, 1)
@@ -25,13 +47,27 @@ script = ExtResource("1_l14o8")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_js4xe")
 
-[node name="dummyMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.350767, 0, 0, 0, 0.314129, 0, 0, 0, 1, 0, 0, -0.679836)
-mesh = SubResource("BoxMesh_uwlmj")
-skeleton = NodePath("../realMesh")
-
 [node name="realMesh" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_qng0c")
 mesh = SubResource("CapsuleMesh_u5wyk")
+script = ExtResource("3_2a84f")
+
+[node name="forwardCube" type="MeshInstance3D" parent="realMesh"]
+transform = Transform3D(0.350767, 0, 0, 0, 0.314129, 0, 0, 0, 1, 0, 0, -0.679836)
+material_override = SubResource("ShaderMaterial_uu15h")
+mesh = SubResource("BoxMesh_uwlmj")
+script = ExtResource("3_2a84f")
+
+[node name="dummyMesh" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_083qf")
+mesh = SubResource("CapsuleMesh_u5wyk")
+script = ExtResource("3_2a84f")
+
+[node name="forwardCube" type="MeshInstance3D" parent="dummyMesh"]
+transform = Transform3D(0.350767, 0, 0, 0, 0.314129, 0, 0, 0, 1, 0, 0, -0.679836)
+material_override = SubResource("ShaderMaterial_khd3q")
+mesh = SubResource("BoxMesh_uwlmj")
+script = ExtResource("3_2a84f")
 
 [node name="head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.881398, 0)

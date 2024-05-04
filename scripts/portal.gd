@@ -11,6 +11,8 @@ var player : CharacterBody3D
 
 @export var color = Color.RED
 
+@onready var cutPlane = $sprite/portalMesh
+
 #@onready var viewport = $SubViewport
 #@onready var materialOverride = $sprite/Sprite3D.material_override
 
@@ -46,7 +48,7 @@ func _process(delta):
 	var player_LocalToSelf = global_transform.affine_inverse() * player.global_transform
 	var global_playerLocalToOtherPortal = targetPortal.global_transform.rotated_local(Vector3.UP,PI) * player_LocalToSelf
 	
-	if is_behind(player.global_transform) and global_position.distance_to(player.global_position) < 1.5:# and name == "portal1":
+	if Input.is_action_just_pressed("ui_accept") and name == "portal1": #is_behind(player.global_transform) and global_position.distance_to(player.global_position) < 1.5:# and name == "portal1":
 		
 		
 		var playerBasis = player.global_transform.basis

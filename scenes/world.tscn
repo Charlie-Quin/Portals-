@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://c846xrm4uahcx"]
 
 [ext_resource type="Shader" path="res://shaders/cutoff.gdshader" id="1_4j5p8"]
-[ext_resource type="Script" path="res://scripts/capsul.gd" id="2_powcp"]
+[ext_resource type="Script" path="res://scripts/cuttableMesh.gd" id="2_powcp"]
 [ext_resource type="PackedScene" uid="uid://bq1tkyat0bymw" path="res://scenes/portal.tscn" id="3_td0wn"]
 [ext_resource type="PackedScene" uid="uid://b7gkcloxvcyqv" path="res://scenes/player.tscn" id="4_qxofc"]
 
@@ -85,7 +85,7 @@ targetPortal = NodePath("../portal2")
 color = Color(0.352941, 0.615686, 0.184314, 1)
 
 [node name="portal2" parent="." node_paths=PackedStringArray("targetPortal") instance=ExtResource("3_td0wn")]
-transform = Transform3D(-0.475899, -0.718988, 0.506533, -0.492309, 0.695022, 0.523999, -0.728801, 0, -0.684725, 4.50506, 4.20393, -4.46499)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.505, 0, -1.38072)
 targetPortal = NodePath("../portal1")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]

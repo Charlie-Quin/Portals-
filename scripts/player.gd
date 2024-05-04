@@ -38,27 +38,27 @@ func _physics_process(delta):
 	velocity.x = lerp(velocity.x,targetVel.x,ACCEL * delta)
 	velocity.z = lerp(velocity.z,targetVel.z,ACCEL * delta)
 	
-	handlePortals()
+	
 	
 	move_and_slide()
 	
 	rotateToUp(delta)
 	
+	handlePortals()
+	
 
 func rotateToUp(delta):
 	
-	
-	
-	var difference = rotation.angle_to(Vector3.UP)
+	var difference = basis.y .angle_to(Vector3.UP)
 	print(difference)
 	
-	if difference < 0.01:
+	if difference < deg_to_rad(2):
 		return
 	
-	var p = -0.08
-	rotate(Vector3.UP.cross(global_transform.basis.y.normalized()).normalized(),difference * p)
+	var axis = (Vector3.UP.cross(global_transform.basis.y.normalized())).normalized()
 	
-	
+	var p = -0.04
+	rotate(axis,difference * p)
 	
 
 
@@ -73,8 +73,9 @@ func handlePortals():
 		return
 	
 	dummyMesh.global_transform = currentPortal.getSwappedPosition(global_transform)
+	dummyMesh.cutPlane = currentPortal.targetPortal.cutPlane
 	
-	
+	realMesh.cutPlane = currentPortal.cutPlane
 	
 
 func swapToNewPosition():
