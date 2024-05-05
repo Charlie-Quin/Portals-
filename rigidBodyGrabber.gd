@@ -2,7 +2,7 @@ extends Node3D
 
 var currentPortal
 
-var pullPower = 0.1
+var pullPower = 10000
 var maxRange = 1
 var desiredVelocityMultiplier = 60
 
@@ -45,14 +45,18 @@ func moveBodyToward(body,globalTransform,delta):
 	
 	var desiredVelocity = difference * desiredVelocityMultiplier
 	
-	#print(desiredVelocity)
+	print(desiredVelocity.normalized())
 	
-	body.linear_velocity = body.linear_velocity.move_toward(desiredVelocity,getStrengthMultiplier(difference.length(),maxRange) * pullPower * delta)
+	var forceStrength = getStrengthMultiplier(difference.length(),maxRange) * pullPower * delta
+	
+	print(desiredVelocity.normalized() * forceStrength)
+	
+	body.apply_force(desiredVelocity.normalized() * forceStrength)
 	
 
 #will return 1 if distance is 0, and with return 0 if distance is more than or equal to max distance
 func getStrengthMultiplier(distance, maxDistance):
 	
-	return distance/(-maxDistance/2) + 1
+	return clamp( distance/(-maxDistance/2) + 1,0.0,1.0);
 	
 	pass
