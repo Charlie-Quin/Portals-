@@ -11,6 +11,7 @@
 render_priority = 0
 shader = ExtResource("2_02smc")
 shader_parameter/useVertex = null
+shader_parameter/cut = null
 shader_parameter/cutplane = null
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u5wyk"]
@@ -19,6 +20,7 @@ shader_parameter/cutplane = null
 render_priority = 0
 shader = ExtResource("2_02smc")
 shader_parameter/useVertex = null
+shader_parameter/cut = null
 shader_parameter/cutplane = null
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lvvqp"]
@@ -31,12 +33,14 @@ material = SubResource("StandardMaterial3D_lvvqp")
 render_priority = 0
 shader = ExtResource("2_02smc")
 shader_parameter/useVertex = null
+shader_parameter/cut = null
 shader_parameter/cutplane = null
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_khd3q"]
 render_priority = 0
 shader = ExtResource("2_02smc")
 shader_parameter/useVertex = null
+shader_parameter/cut = null
 shader_parameter/cutplane = null
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cccij"]

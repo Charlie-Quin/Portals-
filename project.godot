@@ -58,3 +58,4 @@ grab={
 3d_physics/layer_2="player"
 3d_physics/layer_3="walls"
 3d_physics/layer_4="items"
+3d_physics/layer_5="grabber"

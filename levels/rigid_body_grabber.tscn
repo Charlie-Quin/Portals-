@@ -1,12 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://b7qlq3hb27fny"]
+[gd_scene load_steps=4 format=3 uid="uid://b7qlq3hb27fny"]
 
 [ext_resource type="Script" path="res://rigidBodyGrabber.gd" id="1_6vx05"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_06aqh"]
+radius = 1.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_47nad"]
 radius = 1.0735
 
-[node name="rigidBodyGrabber" type="Node3D"]
+[node name="rigidBodyGrabber" type="CharacterBody3D" groups=["portalAble"]]
+collision_layer = 16
+collision_mask = 0
 script = ExtResource("1_6vx05")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_06aqh")
 
 [node name="itemDetect" type="Area3D" parent="."]
 collision_layer = 0
@@ -14,4 +22,12 @@ collision_mask = 8
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="itemDetect"]
+shape = SubResource("SphereShape3D_47nad")
+
+[node name="itemDetectClone" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="itemDetectClone"]
 shape = SubResource("SphereShape3D_47nad")

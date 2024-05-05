@@ -1,7 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://ddukwn3mgo14e"]
+[gd_scene load_steps=17 format=3 uid="uid://ddukwn3mgo14e"]
 
 [ext_resource type="Script" path="res://items/portalRigidBody.gd" id="1_rjtkp"]
-[ext_resource type="Shader" path="res://shaders/cutoff.gdshader" id="2_e4kni"]
 [ext_resource type="Script" path="res://scripts/cuttableMesh.gd" id="3_13vnv"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_53d3s"]
@@ -12,10 +11,55 @@ points = PackedVector3Array(-0.000406244, -0.0140655, -0.000883183, 0.000320291,
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4j66w"]
 points = PackedVector3Array(-0.000405544, 0.000831955, -0.000398419, 0.000682539, 0.00616214, 0.000328175, 0.000682539, 0.00616214, -0.000398419, -0.00440404, 0.00555639, 0.000933783, 0.00201537, 0.00107457, 0.00117621, 0.00516579, 0.00507169, -0.000277433, -0.00440404, 0.00555639, -0.00100425, 0.00201537, 0.00107457, -0.00112546, 0.00201537, 0.00555639, 0.00117621, -0.00198123, 0.00107457, 0.00117621, 0.00201537, 0.00555639, -0.00112546, -0.00198123, 0.00107457, -0.00112546, 0.00528721, 0.00531378, 0.000206964, -0.00440404, 0.00482959, 0.000933783, -0.0018598, 0.00555639, 0.00117621, -0.00440404, 0.00482959, -0.00100425, -0.000285068, 0.00616214, 0.000691585, -0.0021017, 0.00555639, -0.00112546, -0.000285068, 0.00616214, -0.000761829, 0.00528721, 0.00507169, 0.000206964, 0.00032111, 0.000831955, 0.000570374)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_focm7"]
+[sub_resource type="Shader" id="Shader_72l2n"]
+resource_local_to_scene = true
+code = "shader_type spatial;
+
+uniform sampler2D _albedo : source_color;
+
+uniform bool useVertex;
+
+uniform mat4 cutplane;
+varying vec3 wvtx;
+
+varying vec3 myColor;
+
+void vertex() {
+	//world space to local
+	wvtx = (MODEL_MATRIX * vec4(VERTEX,1.0)).xyz;
+	
+	myColor.rgb = VERTEX.rgb;
+}
+
+void fragment() {
+	
+	vec3 planeNormal = normalize(cutplane[1].xyz);
+	float planeDistance = dot(planeNormal,cutplane[3].xyz);
+	float vertexDistance = dot(planeNormal,wvtx);
+	float dist = vertexDistance - planeDistance;
+	
+	if (dist < 0.0) discard;
+	
+	
+	if (useVertex){
+		ALBEDO = myColor;
+	}
+	else{
+		ALBEDO = texture(_albedo,UV).rgb;
+	}
+	
+}
+
+//void light() {
+	// Called for every pixel for every light affecting the material.
+	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pfp7t"]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("2_e4kni")
+shader = SubResource("Shader_72l2n")
 shader_parameter/useVertex = true
 shader_parameter/cutplane = null
 
@@ -147,16 +191,68 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ogxy4")
 
+[sub_resource type="Shader" id="Shader_o52pj"]
+resource_local_to_scene = true
+code = "shader_type spatial;
+
+uniform sampler2D _albedo : source_color;
+
+uniform bool useVertex;
+
+uniform mat4 cutplane;
+varying vec3 wvtx;
+
+varying vec3 myColor;
+
+void vertex() {
+	//world space to local
+	wvtx = (MODEL_MATRIX * vec4(VERTEX,1.0)).xyz;
+	
+	myColor.rgb = VERTEX.rgb;
+}
+
+void fragment() {
+	
+	vec3 planeNormal = normalize(cutplane[1].xyz);
+	float planeDistance = dot(planeNormal,cutplane[3].xyz);
+	float vertexDistance = dot(planeNormal,wvtx);
+	float dist = vertexDistance - planeDistance;
+	
+	if (dist < 0.0) discard;
+	
+	
+	if (useVertex){
+		ALBEDO = myColor;
+	}
+	else{
+		ALBEDO = texture(_albedo,UV).rgb;
+	}
+	
+}
+
+//void light() {
+	// Called for every pixel for every light affecting the material.
+	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sbobb"]
+resource_local_to_scene = true
+render_priority = 0
+shader = SubResource("Shader_o52pj")
+shader_parameter/useVertex = true
+shader_parameter/cutplane = null
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_4lwcs"]
-size = Vector3(0.135559, 0.15863, 2.04895)
+size = Vector3(0.135559, 2.12291, 0.128937)
 
 [node name="anvilHammer" type="RigidBody3D" node_paths=PackedStringArray("realMesh", "dummyMesh") groups=["portalAble"]]
 collision_layer = 9
 collision_mask = 12
 physics_material_override = SubResource("PhysicsMaterial_53d3s")
-gravity_scale = 0.0
+angular_damp = 10.0
 script = ExtResource("1_rjtkp")
-realMesh = NodePath("Anvil Hammer")
+realMesh = NodePath("Anvilham")
 dummyMesh = NodePath("Anvilham dummy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -171,19 +267,26 @@ visible = false
 shape = SubResource("ConvexPolygonShape3D_4j66w")
 disabled = true
 
-[node name="Anvil Hammer" type="MeshInstance3D" parent="."]
-transform = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, -0.0033524, 0.00135517, -0.0043847)
-material_override = SubResource("ShaderMaterial_focm7")
+[node name="Anvilham dummy" type="Node3D" parent="."]
+script = ExtResource("3_13vnv")
+
+[node name="Anvil Hammer" type="MeshInstance3D" parent="Anvilham dummy"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -0.0033524, 0.00135517, -0.0043847)
+material_override = SubResource("ShaderMaterial_pfp7t")
 mesh = SubResource("ArrayMesh_60sox")
 skeleton = NodePath("")
 script = ExtResource("3_13vnv")
 
-[node name="Anvilham dummy" type="MeshInstance3D" parent="."]
-transform = Transform3D(100, 0, 0, 0, -5.02464e-06, 311.708, 0, -42.1498, -3.71585e-05, 0, 0, 0)
+[node name="Anvilham" type="Node3D" parent="."]
+script = ExtResource("3_13vnv")
+
+[node name="Anvil Hammer" type="MeshInstance3D" parent="Anvilham"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -0.0033524, 0.00135517, -0.0043847)
+material_override = SubResource("ShaderMaterial_sbobb")
 mesh = SubResource("ArrayMesh_60sox")
 skeleton = NodePath("")
 script = ExtResource("3_13vnv")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00704956, -0.00424194, 0.524475)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00704956, -0.492104, -0.0146027)
 shape = SubResource("BoxShape3D_4lwcs")

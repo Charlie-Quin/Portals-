@@ -15,6 +15,8 @@ var player : CharacterBody3D
 
 var myWall
 
+var trackedEntities = []
+
 #@onready var viewport = $SubViewport
 #@onready var materialOverride = $sprite/Sprite3D.material_override
 
@@ -53,34 +55,16 @@ func _process(delta):
 	
 	camera.near = max(0.05,(camera.position - targetPortal.global_position).length() - 1.5)
 	
-	var player_LocalToSelf = global_transform.affine_inverse() * player.global_transform
-	var global_playerLocalToOtherPortal = targetPortal.global_transform.rotated_local(Vector3.UP,PI) * player_LocalToSelf
-	
-	if Input.is_action_just_pressed("ui_accept") and name == "portal1": #is_behind(player.global_transform) and global_position.distance_to(player.global_position) < 1.5:# and name == "portal1":
+	var overlappers = $objectDetector.get_overlapping_bodies()
+	for body in trackedEntities:
+		if body.currentPortal != self:
+			trackedEntities.remove_at(trackedEntities.find(body))
+		elif !overlappers.has(body):
+			trackedEntities.remove_at(trackedEntities.find(body))
+			body.currentPortal = null
+			if body is PhysicsBody3D:
+				body.remove_collision_exception_with(myWall)
 		
-		
-		var playerBasis = player.global_transform.basis
-		#var oldPlayerVel = (player.velocity.z * playerBasis.z + player.velocity.x * playerBasis.x + player.velocity.y * playerBasis.y)
-		
-		var oldPlayerVel = Vector3(player.velocity.dot(playerBasis.x),player.velocity.dot(playerBasis.y),player.velocity.dot(playerBasis.z))
-		
-		#var oldPlayerVel = player.to_local(player.velocity)
-		
-		print("old",oldPlayerVel)
-		
-		player.global_transform = global_playerLocalToOtherPortal;
-		
-		var newBasis = player.global_transform.basis
-		
-		var newVel = (oldPlayerVel.z * newBasis.z + oldPlayerVel.x * newBasis.x + oldPlayerVel.y * newBasis.y)
-		
-		print(oldPlayerVel.length(),newVel.length())
-		
-		player.velocity = newVel
-		
-		print("new",player.velocity)
-		
-	
 	
 	#if materialOverride and viewport:
 		#materialOverride.set_shader_parameter("texture_albedo", viewport.get_texture())
@@ -110,13 +94,6 @@ func is_behind(pos: Transform3D,byHowMuch : float = 0.0):
 	#print(name," ",pos.origin.dot(basis.z))
 	return to_local(pos.origin).dot(basis.z) > byHowMuch;
 	
-	
-
-
-
-
-
-
 
 
 func _on_object_detector_body_entered(body):
@@ -124,9 +101,12 @@ func _on_object_detector_body_entered(body):
 	if body.is_in_group("portalAble"):
 		body.currentPortal = self
 		
+		trackedEntities.append(body)
+		
 		if myWall:
-			print("collision exception woo ",myWall)
-			body.add_collision_exception_with(myWall)
+			#print("collision exception woo ",myWall)
+			if body is PhysicsBody3D:
+				body.add_collision_exception_with(myWall)
 		
 	
 	pass # Replace with function body.
@@ -136,8 +116,11 @@ func _on_object_detector_body_exited(body):
 	
 	if body.is_in_group("portalAble") and body.currentPortal == self:
 		body.currentPortal = null
+		trackedEntities.remove_at(trackedEntities.find(body))
+	
 	
 	if myWall:
-		body.remove_collision_exception_with(myWall)
+		if body is PhysicsBody3D:
+			body.remove_collision_exception_with(myWall)
 	
 	pass # Replace with function body.

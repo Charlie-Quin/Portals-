@@ -3,6 +3,7 @@ shader_type spatial;
 uniform sampler2D _albedo : source_color;
 
 uniform bool useVertex;
+uniform bool cut;
 
 uniform mat4 cutplane;
 varying vec3 wvtx;
@@ -23,7 +24,7 @@ void fragment() {
 	float vertexDistance = dot(planeNormal,wvtx);
 	float dist = vertexDistance - planeDistance;
 	
-	//if (dist < 0.0) discard;
+	if (dist < 0.0 && cut) discard;
 	
 	
 	if (useVertex){

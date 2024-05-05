@@ -15,6 +15,7 @@ noise = SubResource("FastNoiseLite_yta80")
 render_priority = 0
 shader = ExtResource("1_4j5p8")
 shader_parameter/useVertex = null
+shader_parameter/cut = null
 shader_parameter/cutplane = null
 shader_parameter/_albedo = SubResource("NoiseTexture2D_e16dy")
 
@@ -87,7 +88,7 @@ mesh = SubResource("CylinderMesh_qkkxn")
 material = SubResource("StandardMaterial3D_uuctm")
 
 [node name="portal1" parent="." node_paths=PackedStringArray("targetPortal") instance=ExtResource("3_td0wn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.325709)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.368)
 targetPortal = NodePath("../portal2")
 color = Color(0.352941, 0.615686, 0.184314, 1)
 
@@ -153,7 +154,7 @@ material = SubResource("StandardMaterial3D_uufj1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.22347)
 
 [node name="anvilHammer" parent="." instance=ExtResource("4_vicxm")]
-transform = Transform3D(1, 0, 0, 0, 0.970093, -0.242735, 0, 0.242735, 0.970093, 0, 0, -6.37119)
+transform = Transform3D(1, 0, 0, 0, -0.00659731, -0.999978, 0, 0.999978, -0.00659731, 0, 0, -6.37119)
 
 [node name="enviroment" type="Node3D" parent="."]
 
@@ -165,8 +166,7 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -16.1056, 22.3886, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(56.6994, 0, 0, 0, 9.37508, 0, 0, 0, 5.90583, 0, 12.1362, 3.32193)
-visible = false
+transform = Transform3D(56.6994, 0, 0, 0, 9.37508, 0, 0, 0, 5.90583, 0, 1.91704, 3.32193)
 collision_layer = 4
 collision_mask = 0
 

@@ -67,6 +67,8 @@ func rotateToUp(delta):
 func handlePortals(delta):
 	
 	dummyMesh.visible = true if currentPortal else false
+	dummyMesh.cut = true if currentPortal else false
+	realMesh.cut = true if currentPortal else false
 	
 	#if we're not in a portal skip this step
 	if !currentPortal:
