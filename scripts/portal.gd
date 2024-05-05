@@ -13,6 +13,8 @@ var player : CharacterBody3D
 
 @onready var cutPlane = $sprite/portalMesh
 
+var myWall
+
 #@onready var viewport = $SubViewport
 #@onready var materialOverride = $sprite/Sprite3D.material_override
 
@@ -20,6 +22,9 @@ var player : CharacterBody3D
 func _ready():
 	
 	$sprite/portalMesh.material_override.set_shader_parameter("portal_colour",color)
+	
+	$wallCheck.force_raycast_update()
+	myWall = $wallCheck.get_collider()
 	
 	#var linked: Node = links[portal]
 	#var link_viewport: Viewport = linked.get_node("Viewport")
@@ -38,6 +43,9 @@ func _process(delta):
 		if not player:
 			return
 	
+	if not myWall:
+		$wallCheck.force_raycast_update()
+		myWall = $wallCheck.get_collider()
 	
 	# we want the player's global matrix as relative to the target portal
 	var m = targetPortal.global_transform.rotated_local(Vector3.UP,PI) * global_transform.affine_inverse() * player.neck.global_transform
@@ -115,6 +123,11 @@ func _on_object_detector_body_entered(body):
 	
 	if body.is_in_group("portalAble"):
 		body.currentPortal = self
+		
+		if myWall:
+			print("collision exception woo ",myWall)
+			body.add_collision_exception_with(myWall)
+		
 	
 	pass # Replace with function body.
 
@@ -123,5 +136,8 @@ func _on_object_detector_body_exited(body):
 	
 	if body.is_in_group("portalAble") and body.currentPortal == self:
 		body.currentPortal = null
+	
+	if myWall:
+		body.remove_collision_exception_with(myWall)
 	
 	pass # Replace with function body.

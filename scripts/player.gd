@@ -95,6 +95,8 @@ func swapToNewPosition():
 	
 	velocity = currentPortal.adjustToNewTransform(velocity,OGTransform,global_transform)
 	
+	currentPortal = currentPortal.targetPortal
+	
 	pass
 
 const SENSITIVITY = 0.0015

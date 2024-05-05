@@ -53,13 +53,11 @@ top_radius = 0.1
 bottom_radius = 0.1
 height = 0.5
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eea0a"]
-resource_local_to_scene = true
-albedo_color = Color(1, 0.207843, 0.0784314, 1)
+[sub_resource type="BoxShape3D" id="BoxShape3D_oof8s"]
+size = Vector3(2, 0.346, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_popph"]
-resource_local_to_scene = true
-material = SubResource("StandardMaterial3D_eea0a")
+[sub_resource type="BoxShape3D" id="BoxShape3D_qxt8h"]
+size = Vector3(0.440503, 2.6, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uw2pb"]
 height = 2.42599
@@ -96,29 +94,36 @@ mesh = SubResource("PrismMesh_4ff8p")
 transform = Transform3D(1, 0, 3.82137e-15, 3.82137e-15, 4.37114e-08, -1, 0, 1, 4.37114e-08, 4.87976e-23, -0.313127, -0.631531)
 mesh = SubResource("CylinderMesh_350q8")
 
-[node name="frame" type="Node3D" parent="."]
-visible = false
+[node name="frame" type="StaticBody3D" parent="."]
+collision_layer = 4
+collision_mask = 0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="frame"]
-transform = Transform3D(2.11987, 0, 0, 0, 0.102374, 0, 0, 0, 0.416464, 0, 1.45174, 0)
-mesh = SubResource("BoxMesh_popph")
+[node name="top" type="CollisionShape3D" parent="frame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.44616, 0.4995)
+shape = SubResource("BoxShape3D_oof8s")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="frame"]
-transform = Transform3D(-1.28858e-07, -0.102374, 0, 2.94794, -4.47491e-09, 0, 0, 0, 0.416464, 1.00626, -0.0215542, 0)
-mesh = SubResource("BoxMesh_popph")
+[node name="top2" type="CollisionShape3D" parent="frame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.56365, 0.4995)
+shape = SubResource("BoxShape3D_oof8s")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="frame"]
-transform = Transform3D(-1.28858e-07, -0.102374, 0, 2.94794, -4.47491e-09, 0, 0, 0, 0.416464, -1.006, -0.022, 0)
-mesh = SubResource("BoxMesh_popph")
+[node name="left" type="CollisionShape3D" parent="frame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.790981, 0, 0.4995)
+shape = SubResource("BoxShape3D_qxt8h")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="frame"]
-transform = Transform3D(2.11987, 0, 0, 0, 0.102374, 0, 0, 0, 0.416464, 0, -1.50095, 0)
-mesh = SubResource("BoxMesh_popph")
+[node name="left2" type="CollisionShape3D" parent="frame"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.842001, 0, 0.4995)
+shape = SubResource("BoxShape3D_qxt8h")
 
 [node name="objectDetector" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="objectDetector"]
 shape = SubResource("CapsuleShape3D_uw2pb")
+
+[node name="wallCheck" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00180471, 0.00367844, 0.00408)
+target_position = Vector3(0, 0, 1)
+collision_mask = 4
+hit_from_inside = true
 
 [connection signal="body_entered" from="objectDetector" to="." method="_on_object_detector_body_entered"]
 [connection signal="body_exited" from="objectDetector" to="." method="_on_object_detector_body_exited"]

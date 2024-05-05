@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c846xrm4uahcx"]
+[gd_scene load_steps=20 format=3 uid="uid://c846xrm4uahcx"]
 
 [ext_resource type="Shader" path="res://shaders/cutoff.gdshader" id="1_4j5p8"]
 [ext_resource type="Script" path="res://scripts/cuttableMesh.gd" id="2_powcp"]
@@ -33,13 +33,13 @@ albedo_color = Color(1, 0.14902, 0.243137, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dkkef"]
 albedo_color = Color(0.0588235, 1, 0.137255, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vkxqc"]
+albedo_color = Color(1, 0.196078, 1, 1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r2v4a"]
 albedo_color = Color(0, 0.588235, 0.894118, 1)
 metallic = 0.67
 roughness = 0.28
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vkxqc"]
-albedo_color = Color(1, 0.196078, 1, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uufj1"]
 albedo_color = Color(1, 1, 0.137255, 1)
@@ -48,6 +48,10 @@ albedo_color = Color(1, 1, 0.137255, 1)
 albedo_color = Color(0, 0.172549, 0, 1)
 metallic = 0.67
 roughness = 0.28
+
+[sub_resource type="BoxMesh" id="BoxMesh_r4dwl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sid2n"]
 
 [node name="World" type="Node3D"]
 
@@ -94,9 +98,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.311401, -0.34217, 3.11577)
 size = Vector3(20.6257, 1, 1)
 material = SubResource("StandardMaterial3D_dkkef")
 
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.311401, 1.35937, 21.5726)
+visible = false
+collision_layer = 4
+collision_mask = 0
+size = Vector3(20.6257, 7.32767, 5.88574)
+material = SubResource("StandardMaterial3D_vkxqc")
+
 [node name="floor" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 use_collision = true
+collision_layer = 4
+collision_mask = 0
 size = Vector3(20, 1, 20)
 material = SubResource("StandardMaterial3D_r2v4a")
 
@@ -113,6 +127,8 @@ material = SubResource("StandardMaterial3D_uufj1")
 [node name="floor2" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.6866, -2.23641, 0)
 use_collision = true
+collision_layer = 4
+collision_mask = 0
 size = Vector3(20, 1, 20)
 material = SubResource("StandardMaterial3D_0npny")
 
@@ -142,3 +158,14 @@ shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="enviroment"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -16.1056, 22.3886, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(56.6994, 0, 0, 0, 9.37508, 0, 0, 0, 5.90583, 0, 0, 3.32193)
+collision_layer = 4
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_r4dwl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_sid2n")

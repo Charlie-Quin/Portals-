@@ -42,6 +42,7 @@ material = SubResource("StandardMaterial3D_cccij")
 size = Vector3(0.1, 0.1, 1)
 
 [node name="player" type="CharacterBody3D" groups=["portalAble"]]
+collision_mask = 12
 script = ExtResource("1_l14o8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
