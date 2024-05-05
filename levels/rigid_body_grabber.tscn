@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7qlq3hb27fny"]
+
+[ext_resource type="Script" path="res://rigidBodyGrabber.gd" id="1_6vx05"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_47nad"]
+radius = 1.0735
+
+[node name="rigidBodyGrabber" type="Node3D"]
+script = ExtResource("1_6vx05")
+
+[node name="itemDetect" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="itemDetect"]
+shape = SubResource("SphereShape3D_47nad")

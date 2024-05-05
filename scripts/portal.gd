@@ -120,7 +120,7 @@ func is_behind(pos: Transform3D,byHowMuch : float = 0.0):
 
 
 func _on_object_detector_body_entered(body):
-	
+	print(body," ",body.get_groups())
 	if body.is_in_group("portalAble"):
 		body.currentPortal = self
 		
