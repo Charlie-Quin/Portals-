@@ -1,6 +1,9 @@
 extends RigidBody3D
 
 
+@export var realMesh : MeshInstance3D
+@export var dummyMesh : MeshInstance3D 
+
 func _physics_process(delta):
 	
 	handlePortals(delta)
@@ -8,21 +11,22 @@ func _physics_process(delta):
 
 
 
-@export var dummyMesh : MeshInstance3D 
-@export var realMesh : MeshInstance3D
 
 var currentPortal
 
 func handlePortals(delta):
 	
-	dummyMesh.visible = true if currentPortal else false
+	dummyMesh.visible = true# if currentPortal else false
+	print(dummyMesh.global_position)
 	
 	#if we're not in a portal skip this step
 	if !currentPortal:
 		return
 	
 	dummyMesh.global_transform = currentPortal.getSwappedPosition(global_transform)
-	dummyMesh.cutPlane = currentPortal.targetPortal.cutPlane
+	#dummyMesh.cutPlane = currentPortal.targetPortal.cutPlane
+	
+	print(dummyMesh.global_position,dummyMesh.visible)
 	
 	realMesh.cutPlane = currentPortal.cutPlane
 	

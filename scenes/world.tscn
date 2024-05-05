@@ -14,6 +14,7 @@ noise = SubResource("FastNoiseLite_yta80")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6n8rm"]
 render_priority = 0
 shader = ExtResource("1_4j5p8")
+shader_parameter/useVertex = null
 shader_parameter/cutplane = null
 shader_parameter/_albedo = SubResource("NoiseTexture2D_e16dy")
 
@@ -164,7 +165,8 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -16.1056, 22.3886, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(56.6994, 0, 0, 0, 9.37508, 0, 0, 0, 5.90583, 0, 0, 3.32193)
+transform = Transform3D(56.6994, 0, 0, 0, 9.37508, 0, 0, 0, 5.90583, 0, 12.1362, 3.32193)
+visible = false
 collision_layer = 4
 collision_mask = 0
 

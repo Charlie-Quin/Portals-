@@ -2,14 +2,18 @@ shader_type spatial;
 
 uniform sampler2D _albedo : source_color;
 
+uniform bool useVertex;
+
 uniform mat4 cutplane;
 varying vec3 wvtx;
+
+varying vec3 myColor;
 
 void vertex() {
 	//world space to local
 	wvtx = (MODEL_MATRIX * vec4(VERTEX,1.0)).xyz;
 	
-	
+	myColor.rgb = VERTEX.rgb;
 }
 
 void fragment() {
@@ -19,9 +23,16 @@ void fragment() {
 	float vertexDistance = dot(planeNormal,wvtx);
 	float dist = vertexDistance - planeDistance;
 	
-	if (dist < 0.0) discard;
+	//if (dist < 0.0) discard;
 	
-	ALBEDO = texture(_albedo,UV).rgb;
+	
+	if (useVertex){
+		ALBEDO = myColor;
+	}
+	else{
+		ALBEDO = texture(_albedo,UV).rgb;
+	}
+	
 }
 
 //void light() {
