@@ -38,7 +38,7 @@ func _physics_process(delta):
 	velocity.x = lerp(velocity.x,targetVel.x,ACCEL * delta)
 	velocity.z = lerp(velocity.z,targetVel.z,ACCEL * delta)
 	
-	
+	handlePortals(delta)
 	
 	move_and_slide()
 	
