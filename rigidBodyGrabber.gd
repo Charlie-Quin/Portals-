@@ -2,7 +2,7 @@ extends Node3D
 
 var currentPortal
 
-var pullPower = 10000
+var pullPower = 1000
 var maxRange = 1
 var desiredVelocityMultiplier = 60
 
