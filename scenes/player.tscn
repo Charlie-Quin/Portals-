@@ -50,10 +50,13 @@ albedo_color = Color(1, 0.160784, 0.235294, 1)
 material = SubResource("StandardMaterial3D_cccij")
 size = Vector3(0.1, 0.1, 1)
 
-[node name="player" type="CharacterBody3D" groups=["portalAble"]]
+[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("dummyMesh", "realMesh") groups=["portalAble"]]
 collision_layer = 3
 collision_mask = 4
 script = ExtResource("1_l14o8")
+pearlPath = "res://ender_pearl.tscn"
+dummyMesh = NodePath("dummyMesh")
+realMesh = NodePath("realMesh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_js4xe")

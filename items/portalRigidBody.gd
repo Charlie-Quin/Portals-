@@ -1,5 +1,6 @@
 extends RigidBody3D
 
+class_name PortalRigidBody
 
 @export var realMesh : Node3D
 @export var dummyMesh : Node3D 

@@ -57,6 +57,11 @@ func _process(delta):
 	
 	var overlappers = $objectDetector.get_overlapping_bodies()
 	for body in trackedEntities:
+		
+		if !is_instance_valid(body):
+			trackedEntities.remove_at(trackedEntities.find(body))
+			continue
+		
 		if body.currentPortal != self:
 			trackedEntities.remove_at(trackedEntities.find(body))
 		elif !overlappers.has(body):

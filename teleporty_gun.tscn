@@ -1,4 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bn6by6oj7eogh"]
+[gd_scene load_steps=6 format=3 uid="uid://bn6by6oj7eogh"]
+
+[ext_resource type="Script" path="res://teleporty_gun.gd" id="1_y4r7i"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_oya84"]
 noise_type = 4
@@ -16,6 +18,8 @@ metallic_texture = SubResource("NoiseTexture2D_t8q41")
 albedo_color = Color(0.721569, 0.321569, 0.2, 1)
 
 [node name="teleportyGun" type="Node3D"]
+script = ExtResource("1_y4r7i")
+pathToPearl = "res://ender_pearl.tscn"
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0832891, 0.00396731, -4.7639e-05)
