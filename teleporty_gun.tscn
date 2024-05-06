@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bn6by6oj7eogh"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_oya84"]
+noise_type = 4
+frequency = 0.0605
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_t8q41"]
+noise = SubResource("FastNoiseLite_oya84")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lqk5g"]
+albedo_color = Color(0.909804, 0.980392, 0.94902, 1)
+metallic = 1.0
+metallic_texture = SubResource("NoiseTexture2D_t8q41")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ym3y2"]
+albedo_color = Color(0.721569, 0.321569, 0.2, 1)
+
+[node name="teleportyGun" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0832891, 0.00396731, -4.7639e-05)
+size = Vector3(0.479, 0.108, 0.1)
+material = SubResource("StandardMaterial3D_lqk5g")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(0.724653, -0.689114, 0, 0.689114, 0.724653, 0, 0, 0, 1, -0.240171, -0.137449, -0.000493109)
+size = Vector3(0.479, 0.108, 0.1)
+material = SubResource("StandardMaterial3D_ym3y2")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.438254, 0.0102081, 0)
+size = Vector3(0.479, 0.046, 0.05)

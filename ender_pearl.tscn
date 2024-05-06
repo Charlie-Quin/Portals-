@@ -1,0 +1,134 @@
+[gd_scene load_steps=9 format=3 uid="uid://btm5peoydul10"]
+
+[ext_resource type="Script" path="res://items/portalRigidBody.gd" id="1_8kcyp"]
+[ext_resource type="Script" path="res://scripts/cuttableMesh.gd" id="2_ixk7l"]
+
+[sub_resource type="Shader" id="Shader_47l5d"]
+code = "shader_type spatial;
+
+uniform sampler2D _albedo : source_color;
+
+uniform bool useVertex;
+uniform bool cut;
+
+uniform mat4 cutplane;
+varying vec3 wvtx;
+
+varying vec3 myColor;
+
+void vertex() {
+	//world space to local
+	wvtx = (MODEL_MATRIX * vec4(VERTEX,1.0)).xyz;
+	
+	myColor.rgb = VERTEX.rgb;
+}
+
+void fragment() {
+	
+	vec3 planeNormal = normalize(cutplane[1].xyz);
+	float planeDistance = dot(planeNormal,cutplane[3].xyz);
+	float vertexDistance = dot(planeNormal,wvtx);
+	float dist = vertexDistance - planeDistance;
+	
+	if (dist < 0.0 && cut) discard;
+	
+	
+	if (useVertex){
+		ALBEDO = myColor;
+	}
+	else{
+		ALBEDO = texture(_albedo,UV).rgb;
+	}
+	
+}
+
+//void light() {
+	// Called for every pixel for every light affecting the material.
+	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_drhm3"]
+render_priority = 0
+shader = SubResource("Shader_47l5d")
+shader_parameter/useVertex = null
+shader_parameter/cut = null
+shader_parameter/cutplane = null
+
+[sub_resource type="SphereMesh" id="SphereMesh_0773v"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="Shader" id="Shader_2kgmy"]
+code = "shader_type spatial;
+
+uniform sampler2D _albedo : source_color;
+
+uniform bool useVertex;
+uniform bool cut;
+
+uniform mat4 cutplane;
+varying vec3 wvtx;
+
+varying vec3 myColor;
+
+void vertex() {
+	//world space to local
+	wvtx = (MODEL_MATRIX * vec4(VERTEX,1.0)).xyz;
+	
+	myColor.rgb = VERTEX.rgb;
+}
+
+void fragment() {
+	
+	vec3 planeNormal = normalize(cutplane[1].xyz);
+	float planeDistance = dot(planeNormal,cutplane[3].xyz);
+	float vertexDistance = dot(planeNormal,wvtx);
+	float dist = vertexDistance - planeDistance;
+	
+	if (dist < 0.0 && cut) discard;
+	
+	
+	if (useVertex){
+		ALBEDO = myColor;
+	}
+	else{
+		ALBEDO = texture(_albedo,UV).rgb;
+	}
+	
+}
+
+//void light() {
+	// Called for every pixel for every light affecting the material.
+	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nq7sx"]
+resource_local_to_scene = true
+render_priority = 0
+shader = SubResource("Shader_2kgmy")
+shader_parameter/useVertex = null
+shader_parameter/cut = null
+shader_parameter/cutplane = null
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_c2kpe"]
+radius = 0.1
+
+[node name="EnderPearl" type="RigidBody3D" node_paths=PackedStringArray("realMesh", "dummyMesh")]
+script = ExtResource("1_8kcyp")
+realMesh = NodePath("real")
+dummyMesh = NodePath("dummy")
+
+[node name="real" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_drhm3")
+mesh = SubResource("SphereMesh_0773v")
+script = ExtResource("2_ixk7l")
+
+[node name="dummy" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_nq7sx")
+mesh = SubResource("SphereMesh_0773v")
+script = ExtResource("2_ixk7l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_c2kpe")

@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://c846xrm4uahcx"]
+[gd_scene load_steps=22 format=3 uid="uid://c846xrm4uahcx"]
 
 [ext_resource type="Shader" path="res://shaders/cutoff.gdshader" id="1_4j5p8"]
 [ext_resource type="Script" path="res://scripts/cuttableMesh.gd" id="2_powcp"]
 [ext_resource type="PackedScene" uid="uid://bq1tkyat0bymw" path="res://scenes/portal.tscn" id="3_td0wn"]
 [ext_resource type="PackedScene" uid="uid://b7gkcloxvcyqv" path="res://scenes/player.tscn" id="4_qxofc"]
 [ext_resource type="PackedScene" uid="uid://ddukwn3mgo14e" path="res://items/anvil_hammer.tscn" id="4_vicxm"]
+[ext_resource type="PackedScene" uid="uid://btm5peoydul10" path="res://ender_pearl.tscn" id="5_xk8ub"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_yta80"]
 
@@ -152,6 +153,9 @@ material = SubResource("StandardMaterial3D_uufj1")
 
 [node name="player" parent="." instance=ExtResource("4_qxofc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.22347)
+
+[node name="EnderPearl" parent="." instance=ExtResource("5_xk8ub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.65734)
 
 [node name="anvilHammer" parent="." instance=ExtResource("4_vicxm")]
 transform = Transform3D(1, 0, 0, 0, -0.00659731, -0.999978, 0, 0.999978, -0.00659731, 0, 0, -6.37119)
