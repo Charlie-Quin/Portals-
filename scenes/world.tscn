@@ -1,10 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://c846xrm4uahcx"]
+[gd_scene load_steps=21 format=3 uid="uid://c846xrm4uahcx"]
 
 [ext_resource type="Shader" path="res://shaders/cutoff.gdshader" id="1_4j5p8"]
 [ext_resource type="Script" path="res://scripts/cuttableMesh.gd" id="2_powcp"]
 [ext_resource type="PackedScene" uid="uid://bq1tkyat0bymw" path="res://scenes/portal.tscn" id="3_td0wn"]
 [ext_resource type="PackedScene" uid="uid://b7gkcloxvcyqv" path="res://scenes/player.tscn" id="4_qxofc"]
-[ext_resource type="PackedScene" uid="uid://b2jsbtjdxomeq" path="res://levels/vr__player.tscn" id="4_v1u7b"]
 [ext_resource type="PackedScene" uid="uid://ddukwn3mgo14e" path="res://items/anvil_hammer.tscn" id="4_vicxm"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_yta80"]
@@ -89,8 +88,9 @@ mesh = SubResource("CylinderMesh_qkkxn")
 material = SubResource("StandardMaterial3D_uuctm")
 
 [node name="portal1" parent="." node_paths=PackedStringArray("targetPortal") instance=ExtResource("3_td0wn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.368)
 targetPortal = NodePath("../portal2")
-color = Color(0.141176, 0.6, 0.65098, 1)
+color = Color(0.352941, 0.615686, 0.184314, 1)
 
 [node name="portal2" parent="." node_paths=PackedStringArray("targetPortal") instance=ExtResource("3_td0wn")]
 transform = Transform3D(-0.656151, 0, 0.754629, 0, 1, 0, -0.754629, 0, -0.656151, 3.76751, 0, -5.2094)
@@ -149,9 +149,6 @@ material = SubResource("StandardMaterial3D_vkxqc")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.7262, 0.0613861, 0.836129)
 size = Vector3(11.3444, 1, 24.8003)
 material = SubResource("StandardMaterial3D_uufj1")
-
-[node name="VR  player" parent="." instance=ExtResource("4_v1u7b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.41429, 0, -7.03335)
 
 [node name="player" parent="." instance=ExtResource("4_qxofc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.22347)

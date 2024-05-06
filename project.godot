@@ -59,8 +59,3 @@ grab={
 3d_physics/layer_3="walls"
 3d_physics/layer_4="items"
 3d_physics/layer_5="grabber"
-
-[xr]
-
-openxr/enabled=true
-shaders/enabled=true
