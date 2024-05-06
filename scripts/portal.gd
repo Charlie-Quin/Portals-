@@ -40,17 +40,15 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
-	if not player:
-		player = Globals.player
-		if not player:
-			return
+	if not Globals.VRCAMERA:
+		return
 	
 	if not myWall:
 		$wallCheck.force_raycast_update()
 		myWall = $wallCheck.get_collider()
 	
 	# we want the player's global matrix as relative to the target portal
-	var m = targetPortal.global_transform.rotated_local(Vector3.UP,PI) * global_transform.affine_inverse() * player.neck.global_transform
+	var m = targetPortal.global_transform.rotated_local(Vector3.UP,PI) * global_transform.affine_inverse() * Globals.VRCAMERA.global_transform
 	camera.transform = m
 	
 	camera.near = max(0.05,(camera.position - targetPortal.global_position).length() - 1.5)
