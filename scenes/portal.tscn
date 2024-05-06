@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bq1tkyat0bymw"]
+[gd_scene load_steps=19 format=3 uid="uid://bq1tkyat0bymw"]
 
 [ext_resource type="Script" path="res://scripts/portal.gd" id="1_4shek"]
 [ext_resource type="Shader" path="res://shaders/portal.gdshader" id="2_sig45"]
@@ -41,6 +41,9 @@ shader_parameter/scale = 10.0
 shader_parameter/texture_albedo = SubResource("ViewportTexture_ih5ta")
 shader_parameter/noise = SubResource("NoiseTexture2D_pddf6")
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_2idew"]
+viewport_path = NodePath("SubViewport")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_72w1i"]
 albedo_color = Color(1, 0.207843, 0.0784314, 1)
 
@@ -77,10 +80,15 @@ transform = Transform3D(-1, 8.74228e-08, 4.37114e-08, -4.37114e-08, 1.91069e-15,
 material_override = SubResource("ShaderMaterial_r766a")
 mesh = SubResource("PlaneMesh_eh4hp")
 
+[node name="Sprite3D" type="Sprite3D" parent="sprite"]
+transform = Transform3D(0.15929, 0, 0, 0, 0.15929, 0, 0, 0, 0.15929, -3.04433, 0, 0)
+flip_h = true
+texture = SubResource("ViewportTexture_2idew")
+
 [node name="SubViewport" type="SubViewport" parent="."]
 msaa_3d = 1
-size = Vector2i(1920, 1080)
-render_target_update_mode = 4
+size = Vector2i(2172, 2228)
+size_2d_override_stretch = true
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport"]
 
