@@ -152,7 +152,7 @@ size = Vector3(11.3444, 1, 24.8003)
 material = SubResource("StandardMaterial3D_uufj1")
 
 [node name="VR  player" parent="." instance=ExtResource("4_v1u7b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.87575, 0, -3.65564)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.41429, 0, -7.03335)
 
 [node name="player" parent="." instance=ExtResource("4_qxofc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.22347)
