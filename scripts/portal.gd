@@ -28,6 +28,8 @@ func _ready():
 	$wallCheck.force_raycast_update()
 	myWall = $wallCheck.get_collider()
 	
+	
+	
 	#var linked: Node = links[portal]
 	#var link_viewport: Viewport = linked.get_node("Viewport")
 	#var tex := link_viewport.get_texture()
@@ -36,9 +38,16 @@ func _ready():
 	
 	pass # Replace with function body.
 
+func _physics_process(delta):
+	
+	$sprite/portalMesh.material_override.set_shader_parameter("texture_albedo",$SubViewport.get_texture())
+	print("texture size: ",$SubViewport.get_texture().get_size())
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
+	
 	
 	if not Globals.VRCAMERA:
 		return

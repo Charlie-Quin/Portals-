@@ -10,7 +10,6 @@ frequency = 0.0391
 noise = SubResource("FastNoiseLite_nhb8l")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_53s85"]
-viewport_path = NodePath("SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kxjsn"]
 resource_local_to_scene = true
@@ -81,13 +80,12 @@ mesh = SubResource("PlaneMesh_eh4hp")
 [node name="SubViewport" type="SubViewport" parent="."]
 msaa_3d = 1
 size = Vector2i(1920, 1080)
+render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport"]
-visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/Camera3D"]
 transform = Transform3D(1, 1.55839e-22, -3.65072e-30, 0, -8.1562e-08, -1, -8.35188e-23, 1.86592, -4.37114e-08, 0, 0, 0.000337343)
-visible = false
 mesh = SubResource("PrismMesh_4ff8p")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/Camera3D/MeshInstance3D"]

@@ -12,5 +12,10 @@ script = ExtResource("1_2ubru")
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 current = true
 
+[node name="RightController" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/RightController"]
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_vuxie")
