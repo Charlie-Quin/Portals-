@@ -89,7 +89,6 @@ mesh = SubResource("CylinderMesh_qkkxn")
 material = SubResource("StandardMaterial3D_uuctm")
 
 [node name="portal1" parent="." node_paths=PackedStringArray("targetPortal") instance=ExtResource("3_td0wn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.363963)
 targetPortal = NodePath("../portal2")
 color = Color(0.141176, 0.6, 0.65098, 1)
 
